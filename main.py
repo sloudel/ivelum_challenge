@@ -26,7 +26,7 @@ def main(path=None):
     response_content = response_content.replace(
         base_url, f'http://{app_host}:{app_port}'
     )
-    # replace one word in a tag
+    # replace one len(word) == 6 in a tag
     response_content = re.sub(
         r'>(\b(\w{6})\b)<', r'>\1™<', response_content, flags=re.I
     )
