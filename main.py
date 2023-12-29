@@ -41,12 +41,20 @@ def main(path=None):
     )
     # replace one len(word) == 6 in a tag
     response_content = re.sub(
-        r'>(\b(\w{6})\b)<', r'>\1™<', response_content, flags=re.I
+        r'>(\b(\w{6})\b)<', r'>\1™<',
+        response_content, flags=re.I
     )
-    # replace len(word) == 6 and space after it
-    response_content = re.sub(
-        r'(\b(\w{6})\b) ', r'\1™ ', response_content, flags=re.I
-    )
+    # replace len(word) == 6 and symbol after it
+    for symbol in ['.', '?']:
+        response_content = re.sub(
+            r'(\b(\w{6})\b)' + "\\" + symbol, r'\1™' + symbol,
+            response_content, flags=re.I
+        )
+    for symbol in [',', ' ', '!']:
+        response_content = re.sub(
+            r'(\b(\w{6})\b)' + symbol, r'\1™' + symbol,
+            response_content, flags=re.I
+        )
     return bytes(response_content, 'utf-8')
 
 
