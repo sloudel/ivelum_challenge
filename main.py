@@ -12,6 +12,10 @@ app = Flask('ivelum')
 @app.route('/', methods=['GET'])
 @app.route('/<path>', methods=['GET'])
 def main(path=None):
+    """
+    Proxy all requests to Hacker News portal
+    and add ™ to words with length == 6
+    """
     print(request.path)
     print(request.query_string)
     response_content = requests.get(
@@ -19,7 +23,9 @@ def main(path=None):
     ).content
     try:
         response_content = response_content.decode('utf-8')
-        response_content = response_content.replace(base_url, f'http://{app_host}:{app_port}')
+        response_content = response_content.replace(
+            base_url, f'http://{app_host}:{app_port}'
+        )
     except UnicodeDecodeError:
         return bytes(response_content)  # return images, styles etc.
     soup = BeautifulSoup(response_content, 'html.parser')
