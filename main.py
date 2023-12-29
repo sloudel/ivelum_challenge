@@ -15,7 +15,7 @@ app = Flask('ivelum')
 def main(path=None):
     """
     Proxy all requests to Hacker News portal
-    and add ™ to words with length == 6
+    and add ™ symbol to words with length == 6
     """
     response = requests.get(
         f'{base_url}{request.path}'
@@ -35,7 +35,6 @@ def main(path=None):
 
 
     response_content = response_content.decode('utf-8')
-    # replace hacker news portal urls with proxy url
     response_content = response_content.replace(
         base_url, f'http://{app_host}:{app_port}'
     )
