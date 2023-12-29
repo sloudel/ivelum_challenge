@@ -24,6 +24,15 @@ def main(path=None):
     response_content = response.content
     if not response.ok:
         return response_content, response.status_code, dict(response.headers)
+    mimetypes = ''.join([mt for mt, _ in request.accept_mimetypes])
+    if '.css' in request.path:
+        return Response(response_content, mimetype='text/css')
+    elif 'text' not in mimetypes:
+        if '.svg' in request.path:
+            return Response(response_content, mimetype='image/svg+xml')
+        elif 'image' in mimetypes:
+            return Response(response_content, mimetype='image/*')
+
 
     response_content = response_content.decode('utf-8')
     # replace hacker news portal urls with proxy url
