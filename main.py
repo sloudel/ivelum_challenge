@@ -1,7 +1,7 @@
 import re
 
 import requests
-from flask import Flask, request
+from flask import Flask, request, Response
 
 base_url = 'https://news.ycombinator.com'
 app_host = '127.0.0.1'
@@ -17,11 +17,15 @@ def main(path=None):
     Proxy all requests to Hacker News portal
     and add ™ to words with length == 6
     """
-    response_content = requests.get(
+    response = requests.get(
         f'{base_url}{request.path}'
         f'?{request.query_string.decode("utf-8")}'
-    ).content.decode('utf-8')
+    )
+    response_content = response.content
+    if not response.ok:
+        return response_content, response.status_code, dict(response.headers)
 
+    response_content = response_content.decode('utf-8')
     # replace hacker news portal urls with proxy url
     response_content = response_content.replace(
         base_url, f'http://{app_host}:{app_port}'
