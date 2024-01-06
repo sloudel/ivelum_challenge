@@ -3,9 +3,7 @@ import re
 import requests
 from flask import Flask, request, Response
 
-base_url = 'https://news.ycombinator.com'
-app_host = '127.0.0.1'
-app_port = 5000
+from constants import *
 
 app = Flask('ivelum')
 
@@ -46,6 +44,9 @@ def main(path=None):
     response_content = response_content.replace(
         base_url, f'http://{app_host}:{app_port}'
     )
+    # replace html symbols
+    for key, value in html_symbols.items():
+        response_content = response_content.replace(key, value)
     # add ™ symbol
     response_content = compiled_re.sub(r'\1™', response_content)
     return bytes(response_content, 'utf-8')
