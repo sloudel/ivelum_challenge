@@ -27,6 +27,8 @@ def main(path=None):
     )
     response_content = response.content
     if not response.ok:
+        response.headers.pop('Transfer-Encoding')
+        response.headers.pop('Content-Encoding')
         return response_content, response.status_code, dict(response.headers)
     mimetypes = ''.join([mt for mt, _ in request.accept_mimetypes])
     if '.js' in request.path:
@@ -38,7 +40,6 @@ def main(path=None):
             return Response(response_content, mimetype='image/svg+xml')
         elif 'image' in mimetypes:
             return Response(response_content, mimetype='image/*')
-
 
     response_content = response_content.decode('utf-8')
     response_content = response_content.replace(
