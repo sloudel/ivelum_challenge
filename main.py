@@ -19,7 +19,7 @@ compiled_re = re.compile(
 @app.route('/<path>', methods=['GET'])
 def main(path=None):
     """
-    Proxy all requests to Hacker News portal
+    Proxy all requests to base_url from constants
     and add ™ symbol to words with length == 6
     """
     response = requests.get(

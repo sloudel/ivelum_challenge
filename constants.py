@@ -3,8 +3,7 @@ html_symbols = {
     '&quot;': '"', '&lsquo;': '‘', '&rsquo;': '’', '&ldquo;': '“',
     '&rdquo;': '”', '&sbquo;': '‚', '&bdquo;': '„', '&lsaquo;': '‹', 
     '&rsaquo;': '›', '&laquo;': '«', '&raquo;': '»', '&ndash;': '–',
-    '&hellip;': '…', '&deg;': '°', '&prime;': '′', '&Prime;': '″'
-
+    '&hellip;': '…', '&deg;': '°', '&prime;': '′', '&Prime;': '″',
 }
 
 base_url = 'https://news.ycombinator.com'
